@@ -374,14 +374,92 @@ class TaskFive(CheckSolution):
                 print(f"Output: {test_case['answer']}")
                 print(f"Expected: {test_case['expected']}\n")
 
+# input 5, 6 output 15625, input 2, 3 output 8, input 4, 5 output 1024, input 3, 4 output 81
+class TaskSix(CheckSolution):
+    def __init__(self, task_name, homework_name):
+        self.homework_name = homework_name
+        super().__init__(task_name)
+
+    def test_case_1(self, solution):
+        answer = solution(5, 6)
+        expected = 15625
+
+        result = {
+            "input":['5', '6'],
+            "answer": answer,
+            "expected": expected,
+            "isSolved": answer == expected
+        }
+        return result
+    
+    def test_case_2(self, solution):
+
+        answer = solution(2, 3)
+        expected = 8
+
+        result = {
+            "input":['2', '3'],
+            "answer": answer,
+            "expected": expected,
+            "isSolved": answer == expected
+        }
+        return result
+    
+    def test_case_3(self, solution):
+        answer = solution(4, 5)
+        expected = 1024
+
+        result = {
+            "input":['4', '5'],
+            "answer": answer,
+            "expected": expected,
+            "isSolved": answer == expected
+        }
+        return result
+    
+    def test_case_4(self, solution):
+        answer = solution(3, 4)
+        expected = 81
+
+        result = {
+            "input":['3', '4'],
+            "answer": answer,
+            "expected": expected,
+            "isSolved": answer == expected
+        }
+        return result
+    
+    def check(self, solution, tg_username):
+
+        test_cases = [
+            self.test_case_1(solution),
+            self.test_case_2(solution),
+            self.test_case_3(solution),
+            self.test_case_4(solution)
+        ]
+        isSolved = [test_case["isSolved"] for test_case in test_cases]
+        isSolved = all(isSolved)
+        self.checking(tg_username, isSolved, self.homework_name)
+        print("-" * 50)
+        for i, test_case in enumerate(test_cases, 1):
+            # is solve emoji
+            emoji = "✅" if test_case["isSolved"] else "❌"
+            print(f"{emoji} Test: {i}")
+            if not test_case["isSolved"]:
+                print(f"Input: {', '.join(test_case['input'])}")
+                print(f"Output: {test_case['answer']}")
+                print(f"Expected: {test_case['expected']}\n")
+
+
 q1 = TaskOne("task_1", "basic_math_function")
 q2 = TaskTwo("task_2", "basic_math_function")
 q3 = TaskThree("task_3", "basic_math_function")
 q4 = TaskFour("task_4", "basic_math_function")
 q5 = TaskFive("task_5", "basic_math_function")
+q6 = TaskSix("task_6", "basic_math_function")
 
-# def main5(x):
-#     return math.exp(x)
+# def main6(a, n):
+#     return a ** n
 
-# q5.check(main5, "test_user")
-# # q1.check(main1, "test_user")
+# q6.check(main6, "test_user")
+# # # q1.check(main1, "test_user")
